@@ -1,14 +1,12 @@
-import 'dart:io';
-
-// This check works in pure Dart.
-// In debug mode, assertions are enabled, so the assert runs and sets this to true.
-// In release mode, assertions are stripped out, so it remains false.
-const bool _isDebug = !bool.fromEnvironment('dart.vm.product');
+import 'package:flutter/foundation.dart';
 
 /// A utility class for colored and formatted debug logging in pure Dart.
 ///
-/// This abstract class is not meant to be instantiated. It provides a set of
-/// static methods for logging that only print when the app is in debug mode.
+/// This abstract class serves as a namespace and is not meant to be instantiated.
+/// It provides a set of static methods for logging that will only print when the
+/// application is in debug mode (`!bool.fromEnvironment('dart.vm.product')`).
+/// In release builds, calls to these methods are completely ignored with no
+/// performance impact.
 abstract class DebugLogger {
   // ANSI Color Codes
   static const String _reset = '\x1B[0m';
@@ -18,72 +16,84 @@ abstract class DebugLogger {
 
   /// Logs a simple informational message in light purple.
   ///
+  /// Automatically includes the class and method from where it was called.
   /// - [message]: The string message to log.
   static void log(String message) {
-    if (_isDebug) {
-      _printFormatted(color: _lightPurple, title: 'INFO', message: message);
+    if (kDebugMode) {
+      _printFormatted(color: _lightPurple, title: 'INFO: ', message: message);
     }
   }
 
   /// Logs a message with an associated data object in light blue.
   ///
+  /// Automatically includes the class and method from where it was called.
+  /// The [data] object will be converted to a string using its `.toString()` method.
   /// - [message]: A descriptive message for the data.
-  /// - [data]: The object to be logged. Its `.toString()` method will be used.
+  /// - [data]: The object to be logged.
   static void logData(String message, Object data) {
-    if (_isDebug) {
+    if (kDebugMode) {
       _printFormatted(
         color: _lightBlue,
-        title: 'DATA',
+        title: 'DATA: ',
         message: '$message\n${data.toString()}',
       );
     }
   }
 
-  /// Logs an error message with an associated error object in red.
+  /// Logs an error message with an associated error object and stack trace in red.
   ///
+  /// Automatically includes the class and method from where it was called.
   /// - [message]: A descriptive message for the error.
-  /// - [error]: The error object (e.g., an Exception).
-  /// - [stackTrace]: The optional stack trace.
+  /// - [error]: The error object (e.g., an `Exception`).
+  /// - [stackTrace]: The optional stack trace associated with the error.
   static void logError(String message, Object error, [StackTrace? stackTrace]) {
-    if (_isDebug) {
+    if (kDebugMode) {
       _printFormatted(
         color: _red,
-        title: 'ERROR',
+        title: 'ERROR: ',
         message:
-            '$message\n${error.toString()}${stackTrace == null ? '' : '\n$stackTrace'}',
+            '$message\n${error.toString()}${stackTrace ?? StackTrace.current}',
       );
     }
   }
 
+  /// A compiled regular expression for efficiently parsing stack trace lines.
+  static final _callerInfoRegex = RegExp(r'#\d+\s+(.+)\s+\((.+)\)');
+
   /// Internal helper to get the caller's location from the stack trace.
-  /// Internal helper to get the caller's location from the stack trace.
+  ///
+  /// Parses `StackTrace.current` to find the class and method that invoked
+  /// the public logging method, providing context for the log message.
   static String _getCallerInfo() {
     try {
       final stack = StackTrace.current.toString().split('\n');
-      if (stack.length > 3) {
-        final callerLine = stack[3];
-        final parts = callerLine.split(RegExp(r'\s+'));
-        final location = parts.length > 1 ? parts[1] : 'Unknown';
+      // The call stack is typically: #0 _getCallerInfo, #1 _printFormatted,
+      // #2 log/logData/logError, #3 the actual caller. We target index 3.
+      final callerLine = stack.length > 3 ? stack[3] : null;
 
-        // Split the location by the dot to separate class and method
-        if (location.contains('.')) {
-          final locationParts = location.split('.');
-          final className = locationParts[0];
-          final methodName = locationParts[1];
-          return '[Class: $className] [Method: $methodName]';
-        } else {
-          // Handle cases where the call is from a top-level function
-          return '[Function: $location]';
+      if (callerLine != null) {
+        final match = _callerInfoRegex.firstMatch(callerLine);
+        if (match != null) {
+          final location = match.group(1) ?? 'Unknown';
+          if (location.contains('.')) {
+            final parts = location.split('.');
+            return '[Class: ${parts[0]}] [Method: ${parts[1]}]';
+          } else {
+            return '[Function: $location]';
+          }
         }
       }
     } catch (e) {
-      // Fallback in case of a parsing error
-      DebugLogger.logError('Failed to parse stack trace for caller info', e);
+      // Return a fallback string if parsing fails for any reason.
+      return '[Location: Error Parsing Stack]';
     }
     return '[Location: Unknown]';
   }
 
-  /// Internal helper to format and print the log message.
+  /// Internal helper to format and print the final log message.
+  ///
+  /// Builds the complete log output with demarcation lines, title, caller info,
+  /// and the message content using a `StringBuffer` for efficiency.
   static void _printFormatted({
     required String color,
     required String title,
@@ -92,9 +102,13 @@ abstract class DebugLogger {
     final callerInfo = _getCallerInfo();
     final demarcation = '═' * 80;
 
-    stdout.writeln('$color$demarcation$_reset');
-    stdout.writeln('$color$title $callerInfo$_reset');
-    stdout.writeln('$color$message$_reset');
-    stdout.writeln('$color$demarcation$_reset');
+    // StringBuffer for efficient string building.
+    final buffer = StringBuffer();
+    buffer.writeln('$color$demarcation$_reset');
+    buffer.writeln('$color$title $callerInfo$_reset');
+    buffer.writeln(message);
+    buffer.writeln('$color$demarcation$_reset');
+
+    debugPrint(buffer.toString());
   }
 }
