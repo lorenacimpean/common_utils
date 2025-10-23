@@ -1,11 +1,4 @@
-import 'dart:io';
-
-/// A compile-time constant that is `true` if the application is running in
-/// debug mode, and `false` in release mode.
-///
-/// This is determined by checking the `dart.vm.product` environment flag, which
-/// is the standard method for creating debug-only logic in pure Dart.
-const bool _isDebug = !bool.fromEnvironment('dart.vm.product');
+import 'package:flutter/foundation.dart';
 
 /// A utility class for colored and formatted debug logging in pure Dart.
 ///
@@ -26,7 +19,7 @@ abstract class DebugLogger {
   /// Automatically includes the class and method from where it was called.
   /// - [message]: The string message to log.
   static void log(String message) {
-    if (_isDebug) {
+    if (kDebugMode) {
       _printFormatted(color: _lightPurple, title: 'INFO: ', message: message);
     }
   }
@@ -38,7 +31,7 @@ abstract class DebugLogger {
   /// - [message]: A descriptive message for the data.
   /// - [data]: The object to be logged.
   static void logData(String message, Object data) {
-    if (_isDebug) {
+    if (kDebugMode) {
       _printFormatted(
         color: _lightBlue,
         title: 'DATA: ',
@@ -54,7 +47,7 @@ abstract class DebugLogger {
   /// - [error]: The error object (e.g., an `Exception`).
   /// - [stackTrace]: The optional stack trace associated with the error.
   static void logError(String message, Object error, [StackTrace? stackTrace]) {
-    if (_isDebug) {
+    if (kDebugMode) {
       _printFormatted(
         color: _red,
         title: 'ERROR: ',
@@ -109,16 +102,13 @@ abstract class DebugLogger {
     final callerInfo = _getCallerInfo();
     final demarcation = '═' * 80;
 
-    // Use StringBuffer for efficient string building.
+    // StringBuffer for efficient string building.
     final buffer = StringBuffer();
     buffer.writeln('$color$demarcation$_reset');
     buffer.writeln('$color$title $callerInfo$_reset');
-    buffer.writeln(
-      message,
-    ); // Message is printed without color to preserve its content
+    buffer.writeln(message);
     buffer.writeln('$color$demarcation$_reset');
 
-    // Use a single write call to stdout.
-    stdout.write(buffer.toString());
+    debugPrint(buffer.toString());
   }
 }
