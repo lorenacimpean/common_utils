@@ -1,39 +1,92 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Common Utils
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+**common_utils** is a utility package for Flutter that provides a collection of helpers and extensions to streamline your development. It aims to reduce boilerplate code and simplify common tasks such as theming, form validation, and platform-specific logic.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+*   **Theming Utilities:** Access your app's theme and media query data with ease using convenient `BuildContext` extensions.
+*   **Form Validation:** A comprehensive `FormValidator` class with a wide range of pre-built validation methods for your form fields.
+*   **Platform Utilities:** Easily check the current platform (Android, iOS, etc.).
+*   **Debugging Tools:** A simple `DebugLogger` for printing messages only in debug mode.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+To use this package, add `common_utils` as a [dependency in your pubspec.yaml file](https://flutter.dev/to/develop-packages).
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+Here are some examples of how to use the utilities in this package.
+
+### BuildContext Shortcuts
+
+Access `ThemeData`, `MediaQueryData`, and more directly from your `BuildContext`.
 
 ```dart
-const like = 'sample';
+import 'package:common_utils/common_utils.dart';
+
+class MyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: context.screenWidth,
+      height: context.screenHeight,
+      color: context.primaryColor,
+      child: Text(
+        'Hello, world!',
+        style: context.textTheme.headline6,
+      ),
+    );
+  }
+}
+```
+
+### Form Validation
+
+Use the `FormValidator` singleton to validate your `TextFormField`s.
+
+```dart
+import 'package:common_utils/common_utils.dart';
+
+class MyForm extends StatefulWidget {
+  @override
+  _MyFormState createState() => _MyFormState();
+}
+
+class _MyFormState extends State<MyForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            validator: (value) => FormValidator.instance.required(value),
+          ),
+          TextFormField(
+            validator: (value) {
+              return FormValidator.compose([
+                () => FormValidator.instance.required(value),
+                () => FormValidator.instance.email(value),
+              ]);
+            },
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                // Process data
+              }
+            },
+            child: Text('Submit'),
+          ),
+        ],
+      ),
+    );
+  }
+}
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+For more information, feel free to browse the source code. To contribute to this package, please file an issue or submit a pull request.
