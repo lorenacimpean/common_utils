@@ -1,7 +1,7 @@
-name: common_utils_example
-description: "Demonstrates how to use the common_utils package."
+name: project_starter_kit_example
+description: "Demonstrates how to use the project_starter_kit package."
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  common_utils:
+  project_starter_kit:
     path: ../
   cupertino_icons: ^1.0.8
 

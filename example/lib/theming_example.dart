@@ -1,5 +1,5 @@
-import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:project_starter_kit/project_starter_kit.dart';
 
 class ThemingExample extends StatelessWidget {
   const ThemingExample({super.key});
@@ -12,7 +12,7 @@ class ThemingExample extends StatelessWidget {
         padding: const EdgeInsets.all(SoftGrid.spaceL),
         children: [
           const Text(
-            'This example demonstrates the theming utilities in the common_utils package.',
+            'This example demonstrates the theming utilities in the project_starter_kit package.',
             style: TextStyle(
               fontSize: FontSizes.fontSizeM,
               fontWeight: FontSizes.regular,

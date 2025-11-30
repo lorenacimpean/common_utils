@@ -1,4 +1,4 @@
-import 'package:common_utils/src/utils/debug_logger.dart';
+import 'package:project_starter_kit/src/utils/debug_logger.dart';
 
 void main() {
   DebugLogger.log('test');

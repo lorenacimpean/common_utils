@@ -1,5 +1,5 @@
-import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:project_starter_kit/common_utils.dart';
 
 class OtherUtilsExample extends StatelessWidget {
   const OtherUtilsExample({super.key});
