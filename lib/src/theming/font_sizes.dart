@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// This abstract class is not meant to be instantiated. It provides a single
 /// source of truth for all foundational typographic values, including a modular
 /// font scale, standard font weights, and line height multipliers.
-abstract class Typography {
+abstract class FontSizes {
   // -- Modular Typographic Scale --
   // A set of font sizes with increasing intervals to create a harmonious
   // and clear visual hierarchy.
