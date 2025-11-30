@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_starter_kit/common_utils.dart';
+import 'package:project_starter_kit/project_starter_kit.dart';
 
 class ThemingExample extends StatelessWidget {
   const ThemingExample({super.key});
