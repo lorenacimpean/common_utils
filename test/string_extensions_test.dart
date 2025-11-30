@@ -1,4 +1,4 @@
-import 'package:common_utils/src/utils/common_string_extensions.dart';
+import 'package:project_starter_kit/src/utils/common_string_extensions.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -1,6 +1,6 @@
-# Common Utils
+# Project Starter Kit
 
-**common_utils** is a Flutter utility package that provides a collection of helpers and extensions covering the most common tasks when starting a new project, including theming, form validation, and platform-specific logic, helping reduce boilerplate code.
+**project_starter_kit** is a Flutter utility package that provides a collection of helpers and extensions covering the most common tasks when starting a new project, including theming, form validation, and platform-specific logic, helping reduce boilerplate code.
 ## Features
 
 * **Theming:** A suite of theming helpers for consistent spacing, sizing, and typography.
@@ -14,13 +14,13 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  common_utils: ^1.0.0 # Replace with the latest version
+  project_starter_kit: ^1.0.0 # Replace with the latest version
 ```
 
 Then, import the package in your Dart files:
 
 ```dart
-import 'package:common_utils/common_utils.dart';
+import 'package:project_starter_kit/project_starter_kit.dart';
 ```
 
 ## Usage
@@ -72,7 +72,7 @@ Container(
 
 ## Additional Information
 
-* **Source Code:** [https://github.com/lorenacimpean/common_utils](https://github.com/lorenacimpean/common_utils)
-* **Issue Tracker:** [https://github.com/lorenacimpean/common_utils/issues](https://github.com/lorenacimpean/common_utils/issues)
+* **Source Code:** [https://github.com/your_username/project_starter_kit](https://github.com/your_username/project_starter_kit)
+* **Issue Tracker:** [https://github.com/your_username/project_starter_kit/issues](https://github.com/your_username/project_starter_kit/issues)
 
 To contribute to this package, please feel free to file an issue or submit a pull request.

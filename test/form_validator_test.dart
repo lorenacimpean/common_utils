@@ -1,4 +1,4 @@
-import 'package:common_utils/common_utils.dart';
+import 'package:project_starter_kit/common_utils.dart';
 import 'package:test/test.dart';
 
 void main() {

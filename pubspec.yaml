@@ -1,4 +1,4 @@
-name: common_utils
+name: project_starter_kit
 description: A collection of essential Flutter utilities, including theming helpers, a versatile form validator, and useful Dart extensions.
 version: 1.0.0
 repository: https://github.com/lorenacimpean/common_utils
