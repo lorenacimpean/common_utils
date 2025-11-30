@@ -1,92 +1,78 @@
 # Common Utils
 
-**common_utils** is a utility package for Flutter that provides a collection of helpers and extensions to streamline your development. It aims to reduce boilerplate code and simplify common tasks such as theming, form validation, and platform-specific logic.
-
+**common_utils** is a Flutter utility package that provides a collection of helpers and extensions covering the most common tasks when starting a new project, including theming, form validation, and platform-specific logic, helping reduce boilerplate code.
 ## Features
 
-*   **Theming Utilities:** Access your app's theme and media query data with ease using convenient `BuildContext` extensions.
-*   **Form Validation:** A comprehensive `FormValidator` class with a wide range of pre-built validation methods for your form fields.
-*   **Platform Utilities:** Easily check the current platform (Android, iOS, etc.).
-*   **Debugging Tools:** A simple `DebugLogger` for printing messages only in debug mode.
+* **Theming:** A suite of theming helpers for consistent spacing, sizing, and typography.
+* **Validation:** A robust `FormValidator` class with a wide range of pre-built validation methods.
+* **Extensions:** Useful Dart extensions for `BuildContext`, `String`, and `Iterable`.
+* **Utilities:** Helpers for platform-specific logic and debug logging.
 
-## Getting started
+## Getting Started
 
-To use this package, add `common_utils` as a [dependency in your pubspec.yaml file](https://flutter.dev/to/develop-packages).
+Add the package to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  common_utils: ^1.0.0 # Replace with the latest version
+```
+
+Then, import the package in your Dart files:
+
+```dart
+import 'package:common_utils/common_utils.dart';
+```
 
 ## Usage
 
-Here are some examples of how to use the utilities in this package.
+### Form Validation
+
+Quickly add validation to any `TextFormField` using the `FormValidator` singleton.
+
+```dart
+TextFormField(
+  validator: (value) => FormValidator.compose([
+    () => FormValidator.instance.required(value),
+    () => FormValidator.instance.email(value),
+  ]),
+),
+```
+
+### String Extensions
+
+Easily manipulate strings with helpful extension methods.
+
+```dart
+'hello world'.toTitleCase(); // -> 'Hello World'
+
+'some text'.capitalize(); // -> 'Some text'
+
+'  remove spaces  '.removeWhitespace(); // -> 'removespaces'
+```
 
 ### BuildContext Shortcuts
 
-Access `ThemeData`, `MediaQueryData`, and more directly from your `BuildContext`.
+Access theme and media query properties without the boilerplate.
 
 ```dart
-import 'package:common_utils/common_utils.dart';
+// Instead of this:
+// width: MediaQuery.of(context).size.width,
+// color: Theme.of(context).primaryColor,
 
-class MyWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: context.screenWidth,
-      height: context.screenHeight,
-      color: context.primaryColor,
-      child: Text(
-        'Hello, world!',
-        style: context.textTheme.headline6,
-      ),
-    );
-  }
-}
+// Do this:
+Container(
+  width: context.screenWidth,
+  color: context.primaryColor,
+  child: Text(
+    'Hello!',
+    style: context.textTheme.headlineMedium,
+  ),
+);
 ```
 
-### Form Validation
+## Additional Information
 
-Use the `FormValidator` singleton to validate your `TextFormField`s.
+* **Source Code:** [https://github.com/lorenacimpean/common_utils](https://github.com/lorenacimpean/common_utils)
+* **Issue Tracker:** [https://github.com/lorenacimpean/common_utils/issues](https://github.com/lorenacimpean/common_utils/issues)
 
-```dart
-import 'package:common_utils/common_utils.dart';
-
-class MyForm extends StatefulWidget {
-  @override
-  _MyFormState createState() => _MyFormState();
-}
-
-class _MyFormState extends State<MyForm> {
-  final _formKey = GlobalKey<FormState>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: <Widget>[
-          TextFormField(
-            validator: (value) => FormValidator.instance.required(value),
-          ),
-          TextFormField(
-            validator: (value) {
-              return FormValidator.compose([
-                () => FormValidator.instance.required(value),
-                () => FormValidator.instance.email(value),
-              ]);
-            },
-          ),
-          ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                // Process data
-              }
-            },
-            child: Text('Submit'),
-          ),
-        ],
-      ),
-    );
-  }
-}
-```
-
-## Additional information
-
-For more information, feel free to browse the source code. To contribute to this package, please file an issue or submit a pull request.
+To contribute to this package, please feel free to file an issue or submit a pull request.
