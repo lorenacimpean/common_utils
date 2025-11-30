@@ -1,0 +1,279 @@
+<scheme name="Lorena" version="142" parent_scheme="Darcula">
+  <metaInfo>
+    <property name="ide">AndroidStudio</property>
+    <property name="ideVersion">2024.1.1.11</property>
+    <property name="originalScheme">Lorena</property>
+  </metaInfo>
+  <attributes>
+    <option name="DART_ANNOTATION">
+      <value>
+        <option name="FOREGROUND" value="2970bb" />
+      </value>
+    </option>
+    <option name="DART_BAD_CHARACTER">
+      <value>
+        <option name="EFFECT_COLOR" value="d40d8b" />
+        <option name="EFFECT_TYPE" value="2" />
+      </value>
+    </option>
+    <option name="DART_BRACKETS">
+      <value>
+        <option name="FOREGROUND" value="76d090" />
+      </value>
+    </option>
+    <option name="DART_CLASS">
+      <value>
+        <option name="FOREGROUND" value="9a7dcf" />
+      </value>
+    </option>
+    <option name="DART_COMMA">
+      <value>
+        <option name="FOREGROUND" value="76d090" />
+      </value>
+    </option>
+    <option name="DART_CONSTRUCTOR">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_CONSTRUCTOR_TEAR_OFF">
+      <value>
+        <option name="FOREGROUND" value="76d090" />
+      </value>
+    </option>
+    <option name="DART_DOC_COMMENT">
+      <value>
+        <option name="FOREGROUND" value="76d090" />
+        <option name="FONT_TYPE" value="2" />
+      </value>
+    </option>
+    <option name="DART_DYNAMIC_LOCAL_VARIABLE_DECLARATION">
+      <value>
+        <option name="FOREGROUND" value="2970bb" />
+      </value>
+    </option>
+    <option name="DART_DYNAMIC_LOCAL_VARIABLE_REFERENCE">
+      <value>
+        <option name="FOREGROUND" value="76d090" />
+      </value>
+    </option>
+    <option name="DART_DYNAMIC_PARAMETER_DECLARATION">
+      <value>
+        <option name="FOREGROUND" value="aa7cb1" />
+      </value>
+    </option>
+    <option name="DART_ENUM">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_ENUM_CONSTANT">
+      <value>
+        <option name="FOREGROUND" value="2970bb" />
+      </value>
+    </option>
+    <option name="DART_FAT_ARROW">
+      <value>
+        <option name="FOREGROUND" value="76d090" />
+      </value>
+    </option>
+    <option name="DART_FUNCTION_TYPE_ALIAS">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_HINT">
+      <value>
+        <option name="EFFECT_COLOR" value="b1d691" />
+        <option name="ERROR_STRIPE_COLOR" value="ad50c3" />
+        <option name="EFFECT_TYPE" value="2" />
+      </value>
+    </option>
+    <option name="DART_IDENTIFIER">
+      <value>
+        <option name="FOREGROUND" value="76d090" />
+      </value>
+    </option>
+    <option name="DART_IMPORT_PREFIX">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_INSTANCE_FIELD_DECLARATION">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_INSTANCE_FIELD_REFERENCE">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_INSTANCE_GETTER_DECLARATION">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_INSTANCE_GETTER_REFERENCE">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_INSTANCE_METHOD_DECLARATION">
+      <value>
+        <option name="FOREGROUND" value="76d090" />
+        <option name="FONT_TYPE" value="1" />
+      </value>
+    </option>
+    <option name="DART_INSTANCE_METHOD_REFERENCE">
+      <value>
+        <option name="FOREGROUND" value="4de0e0" />
+      </value>
+    </option>
+    <option name="DART_INSTANCE_METHOD_TEAR_OFF">
+      <value>
+        <option name="FOREGROUND" value="76d090" />
+      </value>
+    </option>
+    <option name="DART_INSTANCE_SETTER_DECLARATION">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_INSTANCE_SETTER_REFERENCE">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_INVALID_STRING_ESCAPE">
+      <value>
+        <option name="FOREGROUND" value="c2a9c6" />
+        <option name="EFFECT_COLOR" value="d40d8b" />
+        <option name="EFFECT_TYPE" value="2" />
+      </value>
+    </option>
+    <option name="DART_KEYWORD">
+      <value>
+        <option name="FOREGROUND" value="76d090" />
+        <option name="FONT_TYPE" value="1" />
+        <option name="EFFECT_TYPE" value="4" />
+      </value>
+    </option>
+    <option name="DART_LINE_COMMENT">
+      <value>
+        <option name="FOREGROUND" value="808080" />
+      </value>
+    </option>
+    <option name="DART_LOCAL_FUNCTION_DECLARATION">
+      <value>
+        <option name="FOREGROUND" value="4de0e0" />
+      </value>
+    </option>
+    <option name="DART_LOCAL_FUNCTION_REFERENCE">
+      <value>
+        <option name="FOREGROUND" value="4de0e0" />
+      </value>
+    </option>
+    <option name="DART_LOCAL_FUNCTION_TEAR_OFF">
+      <value>
+        <option name="FOREGROUND" value="4de0e0" />
+      </value>
+    </option>
+    <option name="DART_LOCAL_VARIABLE_DECLARATION">
+      <value>
+        <option name="FOREGROUND" value="4de0e0" />
+      </value>
+    </option>
+    <option name="DART_LOCAL_VARIABLE_REFERENCE">
+      <value>
+        <option name="FOREGROUND" value="4de0e0" />
+      </value>
+    </option>
+    <option name="DART_OPERATION_SIGN">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_PARAMETER_DECLARATION">
+      <value>
+        <option name="FOREGROUND" value="c2a9c6" />
+      </value>
+    </option>
+    <option name="DART_PARAMETER_REFERENCE">
+      <value>
+        <option name="FOREGROUND" value="c2a9c6" />
+      </value>
+    </option>
+    <option name="DART_SEMICOLON">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_STATIC_FIELD_DECLARATION">
+      <value>
+        <option name="FOREGROUND" value="76d090" />
+        <option name="FONT_TYPE" value="2" />
+      </value>
+    </option>
+    <option name="DART_STRING">
+      <value>
+        <option name="FOREGROUND" value="76d090" />
+      </value>
+    </option>
+    <option name="DART_SYMBOL_LITERAL">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_TOP_LEVEL_FUNCTION_DECLARATION">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_TOP_LEVEL_FUNCTION_REFERENCE">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_TOP_LEVEL_FUNCTION_TEAR_OFF">
+      <value>
+        <option name="FOREGROUND" value="d775bb" />
+      </value>
+    </option>
+    <option name="DART_TYPE_ALIAS">
+      <value>
+        <option name="FOREGROUND" value="2970bb" />
+      </value>
+    </option>
+    <option name="DART_TYPE_NAME_DYNAMIC">
+      <value>
+        <option name="FOREGROUND" value="2970bb" />
+      </value>
+    </option>
+    <option name="DART_TYPE_PARAMETER">
+      <value>
+        <option name="FOREGROUND" value="2970bb" />
+      </value>
+    </option>
+    <option name="DART_UNRESOLVED_INSTANCE_MEMBER_REFERENCE">
+      <value>
+        <option name="FOREGROUND" value="99967f" />
+        <option name="EFFECT_COLOR" value="bcc4cb" />
+        <option name="EFFECT_TYPE" value="5" />
+      </value>
+    </option>
+    <option name="DART_VALID_STRING_ESCAPE">
+      <value>
+        <option name="FOREGROUND" value="76d090" />
+      </value>
+    </option>
+    <option name="DART_WARNING">
+      <value>
+        <option name="FOREGROUND" value="b0d0e" />
+        <option name="BACKGROUND" value="95ae80" />
+        <option name="ERROR_STRIPE_COLOR" value="d40d8b" />
+        <option name="EFFECT_TYPE" value="2" />
+      </value>
+    </option>
+  </attributes>
+</scheme>

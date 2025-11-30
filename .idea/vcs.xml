@@ -2,16 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../albums" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../algorithms-in-dart" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../awesomeapp" vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../dev" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../discoeat-app" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../discoeat-restaurant-app" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../my_albums" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../rapidonkey-courier-app" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../training_weather_app_android" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../travel_app" vcs="Git" />
   </component>
 </project>
