@@ -1,4 +1,3 @@
-
 import 'package:common_utils/common_utils.dart';
 import 'package:test/test.dart';
 
@@ -48,7 +47,10 @@ void main() {
       });
 
       test('should return error message if length is less than min', () {
-        expect(validator.minLength('short', 6), 'Must be at least 6 characters long');
+        expect(
+          validator.minLength('short', 6),
+          'Must be at least 6 characters long',
+        );
       });
     });
 
