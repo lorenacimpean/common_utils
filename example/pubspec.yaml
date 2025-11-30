@@ -11,8 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-    diacritic: ^0.1.6
-    collection: ^1.18.0
+  diacritic: ^0.1.6
+  collection: ^1.18.0
   common_utils:
     path: ../
   cupertino_icons: ^1.0.8
