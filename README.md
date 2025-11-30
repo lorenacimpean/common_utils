@@ -1,6 +1,6 @@
 # Common Utils
 
-**common_utils** is a foundational library for Flutter projects, providing a collection of reusable utilities to accelerate your development workflow. It features a robust set of helpers and extensions for common tasks, including theming, comprehensive form validation, and platform-specific adaptations.
+**common_utils** is a utility package for Flutter that provides a collection of helpers and extensions to streamline your development. It aims to reduce boilerplate code and simplify common tasks such as theming, form validation, and platform-specific logic.
 
 ## Features
 
