@@ -1,114 +1,161 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/foundation.dart';
 
 /// A utility class for colored and formatted debug logging in pure Dart.
 ///
 /// This abstract class serves as a namespace and is not meant to be instantiated.
 /// It provides a set of static methods for logging that will only print when the
-/// application is in debug mode (`!bool.fromEnvironment('dart.vm.product')`).
-/// In release builds, calls to these methods are completely ignored with no
-/// performance impact.
+/// application is in debug mode (`kDebugMode`).
+///
+/// In debug builds, logs are formatted with optional ANSI colors, caller context,
+/// and visual separators for readability.
+///
+/// On platforms where ANSI colors are not supported (such as iOS/macOS in Xcode),
+/// color output is automatically disabled to ensure clean and readable logs.
+///
+/// In release builds, calls to these methods are ignored and have no performance
+/// impact.
 abstract class DebugLogger {
-  // ANSI Color Codes
+  // ANSI Color Codes (used only on supported platforms)
   static const String _reset = '\x1B[0m';
   static const String _lightPurple = '\x1B[95m';
   static const String _lightBlue = '\x1B[94m';
   static const String _red = '\x1B[31m';
 
-  /// Logs a simple informational message in light purple.
-  ///
-  /// Automatically includes the class and method from where it was called.
-  /// - [message]: The string message to log.
-  static void log(String message) {
-    if (kDebugMode) {
-      _printFormatted(color: _lightPurple, title: 'INFO: ', message: message);
-    }
-  }
-
-  /// Logs a message with an associated data object in light blue.
-  ///
-  /// Automatically includes the class and method from where it was called.
-  /// The [data] object will be converted to a string using its `.toString()` method.
-  /// - [message]: A descriptive message for the data.
-  /// - [data]: The object to be logged.
-  static void logData(String message, Object data) {
-    if (kDebugMode) {
-      _printFormatted(
-        color: _lightBlue,
-        title: 'DATA: ',
-        message: '$message\n${data.toString()}',
-      );
-    }
-  }
-
-  /// Logs an error message with an associated error object and stack trace in red.
-  ///
-  /// Automatically includes the class and method from where it was called.
-  /// - [message]: A descriptive message for the error.
-  /// - [error]: The error object (e.g., an `Exception`).
-  /// - [stackTrace]: The optional stack trace associated with the error.
-  static void logError(String message, Object error, [StackTrace? stackTrace]) {
-    if (kDebugMode) {
-      _printFormatted(
-        color: _red,
-        title: 'ERROR: ',
-        message:
-            '$message\n${error.toString()}${stackTrace ?? StackTrace.current}',
-      );
-    }
-  }
-
-  /// A compiled regular expression for efficiently parsing stack trace lines.
+  /// Regular expression used to extract caller information
+  /// from a stack trace line.
   static final _callerInfoRegex = RegExp(r'#\d+\s+(.+)\s+\((.+)\)');
 
-  /// Internal helper to get the caller's location from the stack trace.
+  /// Returns the ANSI reset code if supported, otherwise an empty string.
+  static String get _r => _supportsAnsi ? _reset : '';
+
+  /// Whether the current platform supports ANSI color output.
   ///
-  /// Parses `StackTrace.current` to find the class and method that invoked
-  /// the public logging method, providing context for the log message.
+  /// Xcode’s console (iOS/macOS) does not reliably support ANSI escape sequences,
+  /// so colors are disabled on those platforms.
+  static bool get _supportsAnsi => !Platform.isIOS && !Platform.isMacOS;
+
+  /// Logs a simple informational message.
+  ///
+  /// The message is displayed with a visual separator and optional coloring.
+  /// Caller information (class/method/function) is automatically included.
+  ///
+  /// - [message]: The informational message to log.
+  static void log(String message) {
+    if (!kDebugMode) return;
+
+    _printFormatted(
+      color: _c(_lightPurple),
+      title: 'INFO',
+      message: message,
+    );
+  }
+
+  /// Logs a message with an associated data object.
+  ///
+  /// The [data] object is converted to a string using its `toString()` method.
+  /// This is useful for debugging structured objects or API responses.
+  ///
+  /// - [message]: A descriptive label for the data.
+  /// - [data]: The object to log.
+  static void logData(String message, Object data) {
+    if (!kDebugMode) return;
+
+    _printFormatted(
+      color: _c(_lightBlue),
+      title: 'DATA',
+      message: '$message\n$data',
+    );
+  }
+
+  /// Logs an error message with optional stack trace information.
+  ///
+  /// Errors are highlighted for visibility and include caller context.
+  ///
+  /// - [message]: A human-readable description of the error.
+  /// - [error]: The error or exception object.
+  /// - [stackTrace]: Optional stack trace associated with the error.
+  static void logError(
+    String message,
+    Object error, [
+    StackTrace? stackTrace,
+  ]) {
+    if (!kDebugMode) return;
+
+    _printFormatted(
+      color: _c(_red),
+      title: 'ERROR',
+      message: '$message\n$error\n${stackTrace ?? StackTrace.current}',
+    );
+  }
+
+  /// Returns the ANSI color code if supported, otherwise an empty string.
+  static String _c(String color) => _supportsAnsi ? color : '';
+
+  /// Extracts information about the calling method or function.
+  ///
+  /// This method inspects the current stack trace to determine the
+  /// class, method, or function that invoked the public logging API.
+  ///
+  /// If parsing fails, a fallback value is returned.
   static String _getCallerInfo() {
     try {
       final stack = StackTrace.current.toString().split('\n');
-      // The call stack is typically: #0 _getCallerInfo, #1 _printFormatted,
-      // #2 log/logData/logError, #3 the actual caller. We target index 3.
+
+      // Stack layout (typical):
+      // #0 _getCallerInfo
+      // #1 _printFormatted
+      // #2 log/logData/logError
+      // #3 Actual caller  <-- target
       final callerLine = stack.length > 3 ? stack[3] : null;
 
       if (callerLine != null) {
         final match = _callerInfoRegex.firstMatch(callerLine);
+
         if (match != null) {
           final location = match.group(1) ?? 'Unknown';
+
           if (location.contains('.')) {
             final parts = location.split('.');
-            return '[Class: ${parts[0]}] [Method: ${parts[1]}]';
-          } else {
-            return '[Function: $location]';
+            return '${parts[0]}.${parts[1]}';
           }
+
+          return location;
         }
       }
-    } catch (e) {
-      // Return a fallback string if parsing fails for any reason.
-      return '[Location: Error Parsing Stack]';
+    } catch (_) {
+      // Intentionally ignored: fallback will be used.
     }
-    return '[Location: Unknown]';
+
+    return 'Unknown';
   }
 
-  /// Internal helper to format and print the final log message.
+  /// Formats and prints the final log message.
   ///
-  /// Builds the complete log output with demarcation lines, title, caller info,
-  /// and the message content using a `StringBuffer` for efficiency.
+  /// Builds a structured, multi-line log entry containing:
+  /// - A visual separator
+  /// - Log level title
+  /// - Caller information
+  /// - Message content
+  ///
+  /// Output is written using `print()` to avoid truncation issues
+  /// that occur with `debugPrint` on some platforms (notably iOS).
   static void _printFormatted({
     required String color,
     required String title,
     required String message,
   }) {
     final callerInfo = _getCallerInfo();
-    final demarcation = '═' * 80;
+    final separator = '═' * 80;
 
-    // StringBuffer for efficient string building.
-    final buffer = StringBuffer();
-    buffer.writeln('$color$demarcation$_reset');
-    buffer.writeln('$color$title $callerInfo$_reset');
-    buffer.writeln(message);
-    buffer.writeln('$color$demarcation$_reset');
+    final buffer = StringBuffer()
+      ..writeln('$color$separator$_r')
+      ..writeln('$color[$title] [$callerInfo]$_r')
+      ..writeln(message)
+      ..writeln('$color$separator$_r');
 
-    debugPrint(buffer.toString());
+    // Use print instead of debugPrint to avoid truncation on iOS.
+    print(buffer.toString());
   }
 }
